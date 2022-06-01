@@ -1,25 +1,18 @@
-#dockerfile - list of comands that produce an image
-FROM node:18.2.0
-#base image - we will create our image on top of this one
-#similar concept to inheritance
+FROM node:16 as build
 
-#creates a directory called <> and moves us into that directory
-#performs the mkdir and cd commands implicitly
 WORKDIR /app
 
-#every instruction in dockerfile is a step or a layer
-#docker caches layers is nothing is changed
-COPY package*.json ./
+COPY package.json ./
+COPY package-lock.json ./
 
 RUN npm install
 
 COPY . .
 
-#setting and exposing the port
-ENV PORT=3000
+RUN npm run build
 
-EXPOSE 3000
+# Basically going to take in nginx as a web server to expose our React APP
+FROM nginx:1.19
 
-#CMD tells docker engine what command I want to run inside the container
-#json array format
-CMD ["npm", "start"]
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /app/build /user/share/nginx/html
