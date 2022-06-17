@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function NavBar() {
@@ -5,15 +6,15 @@ export default function NavBar() {
     return (
         <nav>
             <Link to="/">
-                <button>Home Page</button>
+                <Button variant="text">Home Page</Button>
             </Link>
             <span> </span>
             <Link to="/login">
-                <button>Login</button>
+                <Button>Login</Button>
             </Link>
             <span> </span>
             <Link to="/register">
-                <button>Sign up</button>
+                <Button>Sign up</Button>
             </Link>
             <span> </span>
             <Link to="/pokemon">

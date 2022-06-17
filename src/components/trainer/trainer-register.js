@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import axios from "axios";
 import { useRef } from "react";
 
@@ -10,8 +11,8 @@ export default function TrainerRegister() {
     //     dob: "12-31-0000",
     // };
 
-    const url = "https://pokeproject.azurewebsites.net";
-    // const url = "http://localhost:8080/poke_project";
+    //const url = "https://pokeproject.azurewebsites.net";
+    const url = "http://localhost:9005/";
 
     const fnameInput = useRef();
     const lnameInput = useRef();
@@ -31,7 +32,7 @@ export default function TrainerRegister() {
             dob: dobInput.current.value,
         };
         try {
-            const response = await axios.post(`${url}/trainers`, user);
+            const response = await axios.post(`${url}trainers/signup`, user);
             console.log(response.data);
         } catch (error) {
             console.error(error.response.data);
@@ -51,7 +52,7 @@ export default function TrainerRegister() {
             <input placeholder="Enter Your Email" ref={emailInput}></input>
             <input type="password" placeholder="Enter Your Password" ref={passwordInput}></input>
             <br></br>
-            <button onClick={register}>Sign Up</button>
+            <Button onClick={register}>Sign Up</Button>
         </>
     );
 }
